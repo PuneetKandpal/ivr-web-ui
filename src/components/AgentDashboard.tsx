@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { PhoneCall, PhoneOff, Mic, MicOff, Pause, Play, Users, Clock, History, Phone } from "lucide-react";
-import { twilioApi } from '@/services/api';
+import api, { twilioApi } from '@/services/api';
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
@@ -299,14 +299,11 @@ const AgentDashboard = () => {
       setStatus('Initiating call...');
       setIsOutboundCallInProgress(true);
 
-      // Since makeOutboundCall is not available in the API, we'll need to implement it
-      // For now, we'll simulate the call
-      const response = await device.connect({ 
-        params: {
-          To: customerPhoneNumber,
-        }
-      });
       
+      const response = await twilioApi.makeOutboundCall(agentId || '', customerPhoneNumber);
+      console.log('Outbound call response:', response);
+
+
       // Add to call logs
       addCallLog({
         id: Date.now().toString(), // Using timestamp as temporary ID
@@ -329,6 +326,8 @@ const AgentDashboard = () => {
       setIsOutboundCallInProgress(false);
     }
   };
+
+
 
   return (
     <div className="container mx-auto p-6">

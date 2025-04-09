@@ -12,6 +12,6 @@ export default defineConfig({
     },
   },
   server:{
-    allowedHosts: ['paper-philip-lamps-intervals.trycloudflare.com']
+    allowedHosts: ['poker-approximately-groundwater-prostate.trycloudflare.com']
   }
 })
